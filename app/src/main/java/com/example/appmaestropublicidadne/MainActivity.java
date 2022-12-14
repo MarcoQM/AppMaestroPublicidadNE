@@ -1,18 +1,21 @@
 package com.example.appmaestropublicidadne;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.appmaestropublicidadne.Publicity.PublicitiesRepository;
 import com.example.appmaestropublicidadne.Publicity.Publicity;
-import com.example.appmaestropublicidadne.client.Client;
-import com.example.appmaestropublicidadne.client.ClientsRepository;
-import com.example.appmaestropublicidadne.zone.Zone;
-import com.example.appmaestropublicidadne.zone.ZonesRepository;
+import com.example.appmaestropublicidadne.Publicity.PublicityActivity;
+import com.example.appmaestropublicidadne.client.ClientActivity;
+import com.example.appmaestropublicidadne.zone.ZoneActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Publicity publicity = new Publicity();
-        publicity.setName("Impresa");
+        publicity.setName("Empresa");
         publicity.setClientId(1);
         publicity.setZoneId(2);
 
@@ -52,5 +55,43 @@ public class MainActivity extends AppCompatActivity {
         //publicitiesRepository.addPublicity(publicity);
         publicitiesRepository.getPublicities().forEach(System.out::println);
 
+
+        Button publicidad = findViewById(R.id.button_advertising);
+        Button zonas = findViewById(R.id.button_zone);
+        Button clientes = findViewById(R.id.button_client);
+
+
+        publicidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent next = new Intent(getApplicationContext(), PublicityActivity.class);
+                startActivity(next);
+                String str = "";
+
+                Log.d(TAG, str);
+            }
+        });
+
+        zonas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent next = new Intent(getApplicationContext(), ZoneActivity.class);
+                startActivity(next);
+                String str = "";
+
+                Log.d(TAG, str);
+            }
+        });
+
+        clientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent next = new Intent(getApplicationContext(), ClientActivity.class);
+                startActivity(next);
+                String str = "";
+
+                Log.d(TAG, str);
+            }
+        });
     }
 }

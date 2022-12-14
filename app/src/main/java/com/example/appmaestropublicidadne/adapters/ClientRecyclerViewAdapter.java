@@ -11,20 +11,19 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmaestropublicidadne.R;
-import com.example.appmaestropublicidadne.zone.Zone;
+import com.example.appmaestropublicidadne.client.Client;
 
 import java.util.ArrayList;
 
-public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerViewAdapter.ViewHolder>{
+public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecyclerViewAdapter.ViewHolder>{
 
     LayoutInflater inflater;
-    ArrayList<Zone> zonas;
+    ArrayList<Client> clientes;
 
-    public ZoneRecyclerViewAdapter (Context context, ArrayList<Zone>zonas){
+    public ClientRecyclerViewAdapter (Context context, ArrayList<Client>clientes){
         this.inflater = LayoutInflater.from(context);
-        this.zonas = zonas;
+        this.clientes = clientes;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,10 +32,10 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int codigo = zonas.get(position).getId();
-        String nombre = zonas.get(position).getName();
-        String estado = zonas.get(position).getRegistrationStatus();
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        int codigo = clientes.get(position).getId();
+        String nombre = clientes.get(position).getName();
+        String estado = clientes.get(position).getRegistrationStatus();
         String cod = codigo+"";
         holder.codigo.setText(cod);
         holder.nombre.setText(nombre);
@@ -45,7 +44,7 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
 
     @Override
     public int getItemCount() {
-        return zonas.size();
+        return clientes.size();
     }
 
 
