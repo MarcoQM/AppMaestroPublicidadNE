@@ -16,7 +16,7 @@ public interface ClientDao {
     List<Client> getClients();
 
     @Query("SELECT * FROM clients WHERE id LIKE :idClient")
-    Client getClient(Integer idClient);
+    Client getClient(String idClient);
 
     @Insert
     void addClient(Client client);

@@ -47,7 +47,7 @@ public class ZoneActivity extends AppCompatActivity implements SearchView.OnQuer
 
         zonesRepository = ZonesRepository.get(this);
         //Mostrar los datos
-        zoneRecyclerViewAdapter = new ZoneRecyclerViewAdapter(zonesRepository.getZones());
+        zoneRecyclerViewAdapter = new ZoneRecyclerViewAdapter(zonesRepository.getZones(), this);
         recyclerViewZones.setAdapter(zoneRecyclerViewAdapter);
         searchViewZones.setOnQueryTextListener(this);
 

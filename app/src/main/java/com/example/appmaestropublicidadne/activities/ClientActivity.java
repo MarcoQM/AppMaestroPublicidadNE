@@ -48,7 +48,7 @@ public class ClientActivity extends AppCompatActivity implements androidx.appcom
         searchViewClients.setOnQueryTextListener(this);
 
         //Mostrar datos
-        clientRecyclerViewAdapter = new ClientRecyclerViewAdapter(clientsRepository.getClients());
+        clientRecyclerViewAdapter = new ClientRecyclerViewAdapter(clientsRepository.getClients(), this);
         recyclerViewClients.setAdapter(clientRecyclerViewAdapter);
 
         buttonAddClient.setOnClickListener(new View.OnClickListener() {

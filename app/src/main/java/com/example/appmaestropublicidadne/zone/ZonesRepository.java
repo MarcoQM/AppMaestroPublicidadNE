@@ -34,7 +34,7 @@ public class ZonesRepository {
         return zoneDao.getZones();
     }
 
-    public Zone getZone(Integer id) {
+    public Zone getZone(String id) {
         return  zoneDao.getZone(id);
     }
 

@@ -33,7 +33,7 @@ public class ClientsRepository {
         return clientDao.getClients();
     }
 
-    public Client getClient(Integer id) {
+    public Client getClient(String id) {
         return  clientDao.getClient(id);
     }
 

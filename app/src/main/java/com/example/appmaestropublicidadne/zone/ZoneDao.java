@@ -16,7 +16,7 @@ public interface ZoneDao {
     List<Zone> getZones();
 
     @Query("SELECT * FROM zones WHERE id LIKE :idZone")
-    Zone getZone(Integer idZone);
+    Zone getZone(String idZone);
 
     @Insert
     void addZone(Zone zone);

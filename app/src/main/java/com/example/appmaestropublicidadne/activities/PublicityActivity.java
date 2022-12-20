@@ -48,7 +48,7 @@ public class PublicityActivity extends AppCompatActivity implements androidx.app
         publicitiesRepository = PublicitiesRepository.get(this);
 
         //Mostar datos
-        publicityRecyclerViewAdapter = new PublicityRecyclerViewAdapter(publicitiesRepository.getPublicities());
+        publicityRecyclerViewAdapter = new PublicityRecyclerViewAdapter(publicitiesRepository.getPublicities(), this);
         recyclerViewPublicities.setAdapter(publicityRecyclerViewAdapter);
         searchViewPublicities.setOnQueryTextListener(this);
 

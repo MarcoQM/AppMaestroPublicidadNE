@@ -1,5 +1,9 @@
 package com.example.appmaestropublicidadne.adapters;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmaestropublicidadne.R;
+import com.example.appmaestropublicidadne.activities.AddZoneActivity;
+import com.example.appmaestropublicidadne.activities.ZoneActivity;
 import com.example.appmaestropublicidadne.zone.Zone;
+import com.example.appmaestropublicidadne.zone.ZonesRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +27,15 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
 
     List<Zone> zoneList;
     List<Zone> originalListZone;
+    Context context;
+    ZonesRepository zonesRepository;
 
-    public ZoneRecyclerViewAdapter(List<Zone> zoneList) {
+    public ZoneRecyclerViewAdapter(List<Zone> zoneList, Context context) {
         this.zoneList = zoneList;
         originalListZone = new ArrayList<>();
         originalListZone.addAll(zoneList);
+        this.context = context;
+        zonesRepository = ZonesRepository.get(this.context);
     }
 
     @NonNull
@@ -85,6 +96,37 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
             estRegZone = itemView.findViewById(R.id.recyclerItemEstReg);
             editZone = itemView.findViewById(R.id.recyclerItemButtonUpdate);
             deleteZone = itemView.findViewById(R.id.recyclerItemButtonDelete);
+
+            deleteZone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog dialogo = new AlertDialog
+                            .Builder(context)
+                            .setPositiveButton("Sí, eliminar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Zone zone = new Zone();
+                                    zone.setId(codeZone.getText().toString());
+                                    zonesRepository.deleteZone(zone);
+
+                                    Intent intent = new Intent(context, ZoneActivity.class);
+                                    context.startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setTitle("Confirmar")
+                            .setMessage("¿Deseas eliminar la Zona?")
+                            .create();
+
+                    dialogo.show();
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

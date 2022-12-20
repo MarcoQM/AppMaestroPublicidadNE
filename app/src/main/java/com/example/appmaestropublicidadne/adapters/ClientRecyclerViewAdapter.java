@@ -1,5 +1,10 @@
 package com.example.appmaestropublicidadne.adapters;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmaestropublicidadne.R;
+import com.example.appmaestropublicidadne.activities.ClientActivity;
+import com.example.appmaestropublicidadne.activities.ZoneActivity;
 import com.example.appmaestropublicidadne.client.Client;
+import com.example.appmaestropublicidadne.client.ClientsRepository;
+import com.example.appmaestropublicidadne.zone.Zone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +30,15 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
     List<Client> clientList;
     List<Client> originalListClient;
 
-    public ClientRecyclerViewAdapter(List<Client> clientList) {
+    Context context;
+    ClientsRepository clientsRepository;
+
+    public ClientRecyclerViewAdapter(List<Client> clientList, Context context) {
         this.clientList = clientList;
         originalListClient = new ArrayList<>();
         originalListClient.addAll(clientList);
+        this.context = context;
+        clientsRepository = ClientsRepository.get(context);
     }
 
     @NonNull
@@ -85,6 +99,37 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
             estRegClient = itemView.findViewById(R.id.recyclerItemEstReg);
             editClient = itemView.findViewById(R.id.recyclerItemButtonUpdate);
             deleteClient = itemView.findViewById(R.id.recyclerItemButtonDelete);
+
+            deleteClient.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog dialogo = new AlertDialog
+                            .Builder(context)
+                            .setPositiveButton("Sí, eliminar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Client client = new Client();
+                                    client.setId(codeClient.getText().toString());
+                                    clientsRepository.deleteClient(client);
+
+                                    Intent intent = new Intent(context, ClientActivity.class);
+                                    context.startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setTitle("Confirmar")
+                            .setMessage("¿Deseas eliminar el cliente?")
+                            .create();
+
+                    dialogo.show();
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
