@@ -8,9 +8,11 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "zones")
 public class Zone {
 
-    @PrimaryKey(autoGenerate = true)
+    //@PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "id")
-    private Integer id;
+    private String id;
 
     @ColumnInfo(name = "name")
     @NonNull
@@ -20,11 +22,11 @@ public class Zone {
     @NonNull
     private String registrationStatus = "A";
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,4 +1,4 @@
-package com.example.appmaestropublicidadne.client;
+package com.example.appmaestropublicidadne.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,9 +11,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.appmaestropublicidadne.Aniadir;
-import com.example.appmaestropublicidadne.Publicity.PublicityActivity;
 import com.example.appmaestropublicidadne.R;
 import com.example.appmaestropublicidadne.adapters.ClientRecyclerViewAdapter;
+import com.example.appmaestropublicidadne.client.Client;
+
 import java.util.ArrayList;
 
 public class ClientActivity extends AppCompatActivity {

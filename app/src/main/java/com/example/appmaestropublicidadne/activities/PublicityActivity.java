@@ -1,4 +1,4 @@
-package com.example.appmaestropublicidadne.Publicity;
+package com.example.appmaestropublicidadne.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

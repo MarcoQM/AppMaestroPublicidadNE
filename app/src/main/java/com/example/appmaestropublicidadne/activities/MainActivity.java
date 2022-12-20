@@ -1,4 +1,4 @@
-package com.example.appmaestropublicidadne;
+package com.example.appmaestropublicidadne.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,9 +10,7 @@ import android.widget.Button;
 
 import com.example.appmaestropublicidadne.Publicity.PublicitiesRepository;
 import com.example.appmaestropublicidadne.Publicity.Publicity;
-import com.example.appmaestropublicidadne.Publicity.PublicityActivity;
-import com.example.appmaestropublicidadne.client.ClientActivity;
-import com.example.appmaestropublicidadne.zone.ZoneActivity;
+import com.example.appmaestropublicidadne.R;
 
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
