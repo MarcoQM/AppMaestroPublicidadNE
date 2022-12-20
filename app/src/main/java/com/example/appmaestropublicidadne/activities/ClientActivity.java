@@ -3,84 +3,88 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.appmaestropublicidadne.Aniadir;
 import com.example.appmaestropublicidadne.R;
 import com.example.appmaestropublicidadne.adapters.ClientRecyclerViewAdapter;
 import com.example.appmaestropublicidadne.client.Client;
+import com.example.appmaestropublicidadne.client.ClientsRepository;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ClientActivity extends AppCompatActivity {
+public class ClientActivity extends AppCompatActivity implements androidx.appcompat.widget.SearchView.OnQueryTextListener{
     private static String TAG = "ClientActivity";
 
-    ClientRecyclerViewAdapter adapterClient;
-    RecyclerView recyclerView;
-    ArrayList<Client> clientes;
+    ClientRecyclerViewAdapter clientRecyclerViewAdapter;
+    RecyclerView recyclerViewClients;
+    SearchView searchViewClients;
+    Button buttonAddClient;
+
+    FloatingActionButton floatingActionButton;
+
+    ClientsRepository clientsRepository;
+    List<Client> clientList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
-        Button aniadir = findViewById(R.id.button_aniadir);
+        clientList = new ArrayList<>();
+        searchViewClients = findViewById(R.id.searchViewClient);
+        recyclerViewClients = findViewById(R.id.recyclerViewClients);
+        buttonAddClient = findViewById(R.id.buttonRegisterClient);
+        floatingActionButton = findViewById(R.id.floatingActionButtonClientHome);
 
-        clientes = new ArrayList<Client>();
-        cargarClientes();
-        mostrarDatos();
+        recyclerViewClients.setLayoutManager(new LinearLayoutManager(this));
+        clientsRepository = ClientsRepository.get(this);
+        searchViewClients.setOnQueryTextListener(this);
 
-        aniadir.setOnClickListener(new View.OnClickListener() {
+        //Mostrar datos
+        clientRecyclerViewAdapter = new ClientRecyclerViewAdapter(clientsRepository.getClients());
+        recyclerViewClients.setAdapter(clientRecyclerViewAdapter);
+
+        buttonAddClient.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                Intent next = new Intent(getApplicationContext(), Aniadir.class);
-                startActivity(next);
-                String str = "";
+            public void onClick(View view) {
+                addClient();
+            }
+        });
 
-                Log.d(TAG, str);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToHome();
             }
         });
     }
 
-    public void mostrarDatos() {
-        adapterClient = new ClientRecyclerViewAdapter(this, clientes);
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapterClient);
+    public void goToHome() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
     }
 
-    public void cargarClientes(){
-        Client cliente1 = new Client();
-        cliente1.setId(1);
-        cliente1.setName("Arnold");
-        cliente1.setRegistrationStatus("A");
-        clientes.add(cliente1);
+    public void addClient() {
+        Intent intent = new Intent(this, AddClientActivity.class);
+        startActivity(intent);
+    }
 
-        Client cliente2 = new Client();
-        cliente2.setId(2);
-        cliente2.setName("Marco");
-        cliente2.setRegistrationStatus("I");
-        clientes.add(cliente2);
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
 
-        Client cliente3 = new Client();
-        cliente3.setId(3);
-        cliente3.setName("Rodrigo");
-        cliente3.setRegistrationStatus("E");
-        clientes.add(cliente3);
-
-        Client cliente4 = new Client();
-        cliente4.setId(4);
-        cliente4.setName("Anyela");
-        cliente4.setRegistrationStatus("A");
-        clientes.add(cliente4);
-        Log.d(TAG, "mensaje\n"+clientes.get(0).toString());
-        Log.d(TAG, "mensaje\n"+clientes.get(1).toString());
-        Log.d(TAG, "mensaje\n"+clientes.get(2).toString());
-        Log.d(TAG, "mensaje\n"+clientes.get(3).toString());
+    @Override
+    public boolean onQueryTextChange(String s) {
+        clientRecyclerViewAdapter.clientFilter(s);
+        return false;
     }
 }

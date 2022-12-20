@@ -46,18 +46,18 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
         return zoneList.size();
     }
 
-    public void plasticFilter(final String searchText) {
+    public void zoneFilter(final String searchText) {
         int textLenght = searchText.length();
         if (textLenght == 0) {
             zoneList.clear();
             zoneList.addAll(originalListZone);
         } else {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                List<Zone> plasticCollection = zoneList.stream()
+                List<Zone> zoneCollection = zoneList.stream()
                         .filter(i -> i.getName().toLowerCase().contains(searchText.toLowerCase()))
                         .collect(Collectors.toList());
                 zoneList.clear();
-                zoneList.addAll(plasticCollection);
+                zoneList.addAll(zoneCollection);
             } else {
                 for (Zone c : originalListZone) {
                     if (c.getName().toLowerCase().contains(searchText.toLowerCase())) {

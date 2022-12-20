@@ -15,48 +15,18 @@ import com.example.appmaestropublicidadne.R;
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
 
+    Button publicidad;
+    Button zonas;
+    Button clientes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        /*Zone zone1 = new Zone();
-        zone1.setName("Arequipa");
-
-        Zone zone2 = new Zone();
-        zone2.setName("Lima");
-
-        ZonesRepository zonesRepository = ZonesRepository.get(this);
-        zonesRepository.addZone(zone1);
-        zonesRepository.addZone(zone2);
-
-
-
-        zonesRepository.getZones().forEach(System.out::println);*/
-
-        /*Client client1 = new Client();
-        client1.setId(1);
-        client1.setName("MarcoAntonio");
-        ClientsRepository clientsRepository = ClientsRepository.get(this);
-        clientsRepository.updateClient(client1);
-
-        clientsRepository.getClients().forEach(System.out::println);*/
-
-
-        Publicity publicity = new Publicity();
-        publicity.setName("Empresa");
-        publicity.setClientId(1);
-        publicity.setZoneId(2);
-
-        PublicitiesRepository publicitiesRepository = PublicitiesRepository.get(this);
-        //publicitiesRepository.addPublicity(publicity);
-        publicitiesRepository.getPublicities().forEach(System.out::println);
-
-
-        Button publicidad = findViewById(R.id.button_advertising);
-        Button zonas = findViewById(R.id.button_zone);
-        Button clientes = findViewById(R.id.button_client);
+        publicidad = findViewById(R.id.button_advertising);
+        zonas = findViewById(R.id.button_zone);
+        clientes = findViewById(R.id.button_client);
 
 
         publicidad.setOnClickListener(new View.OnClickListener() {

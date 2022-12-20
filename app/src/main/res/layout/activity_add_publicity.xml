@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="5dp"
-    tools:context=".activities.AddZoneActivity">
+    tools:context=".activities.AddPublicityActivity">
 
     <TextView
         android:id="@+id/textView2"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"
-        android:text="Agregar Zona"
+        android:text="Agregar Publicidad"
         android:textAlignment="center"
         android:textColor="#399E3D"
         android:textSize="20sp"
@@ -51,7 +51,7 @@
                 android:text="Código" />
 
             <EditText
-                android:id="@+id/editTextZoneCode"
+                android:id="@+id/editTextPublicityCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:digits="0123456789"
@@ -66,15 +66,46 @@
                 android:text="Nombre" />
 
             <EditText
-                android:id="@+id/editTextZoneName"
+                android:id="@+id/editTextPublicityName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Ingrese el nombre"
                 android:inputType="textPersonName" />
 
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cliente" />
+
+            <Spinner
+                android:id="@+id/spinnerPublicityClients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:spinnerMode="dialog"
+                android:prompt="@string/select_client"/>
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zona" />
+
+            <Spinner
+                android:id="@+id/spinnerPublicityZones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:spinnerMode="dialog"
+                android:prompt="@string/select_zone"
+           />
+
             <Button
-                android:id="@+id/buttonSaveZone"
+                android:id="@+id/buttonSavePublicity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Guardar" />

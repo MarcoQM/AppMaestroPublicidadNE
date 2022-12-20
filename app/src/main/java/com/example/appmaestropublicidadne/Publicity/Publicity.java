@@ -12,9 +12,10 @@ import com.example.appmaestropublicidadne.zone.Zone;
 @Entity(tableName = "publicities")
 public class Publicity {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "id")
-    private Integer id;
+    private String id;
 
     @ColumnInfo(name = "name")
     @NonNull
@@ -22,21 +23,21 @@ public class Publicity {
 
     @ColumnInfo(name = "zone_id")
     @NonNull
-    public Integer zoneId;
+    public String zoneId;
 
     @ColumnInfo(name = "client_id")
     @NonNull
-    public Integer clientId;
+    public String clientId;
 
     @ColumnInfo(name = "registration_status")
     @NonNull
     private String registrationStatus = "A";
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -50,20 +51,20 @@ public class Publicity {
     }
 
     @NonNull
-    public Integer getZoneId() {
+    public String getZoneId() {
         return zoneId;
     }
 
-    public void setZoneId(@NonNull Integer zoneId) {
+    public void setZoneId(@NonNull String zoneId) {
         this.zoneId = zoneId;
     }
 
     @NonNull
-    public Integer getClientId() {
+    public String getClientId() {
         return clientId;
     }
 
-    public void setClientId(@NonNull Integer clientId) {
+    public void setClientId(@NonNull String clientId) {
         this.clientId = clientId;
     }
 

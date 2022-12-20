@@ -15,6 +15,7 @@ import com.example.appmaestropublicidadne.R;
 import com.example.appmaestropublicidadne.adapters.ZoneRecyclerViewAdapter;
 import com.example.appmaestropublicidadne.zone.Zone;
 import com.example.appmaestropublicidadne.zone.ZonesRepository;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class ZoneActivity extends AppCompatActivity implements SearchView.OnQuer
     SearchView searchViewZones;
     Button buttonAddZone;
 
+    FloatingActionButton floatingActionButton;
+
     ZonesRepository zonesRepository;
     List<Zone> zoneList;
     @Override
@@ -38,6 +41,7 @@ public class ZoneActivity extends AppCompatActivity implements SearchView.OnQuer
         searchViewZones = findViewById(R.id.searchViewZone);
         recyclerViewZones = findViewById(R.id.recyclerViewZones);
         buttonAddZone = findViewById(R.id.buttonRegisterZone);
+        floatingActionButton = findViewById(R.id.floatingActionButtonZoneHome);
 
         recyclerViewZones.setLayoutManager(new LinearLayoutManager(this));
 
@@ -45,6 +49,7 @@ public class ZoneActivity extends AppCompatActivity implements SearchView.OnQuer
         //Mostrar los datos
         zoneRecyclerViewAdapter = new ZoneRecyclerViewAdapter(zonesRepository.getZones());
         recyclerViewZones.setAdapter(zoneRecyclerViewAdapter);
+        searchViewZones.setOnQueryTextListener(this);
 
         buttonAddZone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +58,17 @@ public class ZoneActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        searchViewZones.setOnQueryTextListener(this);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToHome();
+            }
+        });
+    }
+
+    public void goToHome() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
     }
 
@@ -69,7 +84,7 @@ public class ZoneActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextChange(String s) {
-        zoneRecyclerViewAdapter.plasticFilter(s);
+        zoneRecyclerViewAdapter.zoneFilter(s);
         return false;
     }
 }
