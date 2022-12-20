@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,8 +20,11 @@ import com.example.appmaestropublicidadne.R;
 import com.example.appmaestropublicidadne.activities.PublicityActivity;
 import com.example.appmaestropublicidadne.activities.ZoneActivity;
 import com.example.appmaestropublicidadne.client.Client;
+import com.example.appmaestropublicidadne.client.ClientsRepository;
 import com.example.appmaestropublicidadne.zone.Zone;
+import com.example.appmaestropublicidadne.zone.ZonesRepository;
 
+import java.sql.SQLClientInfoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -134,6 +138,60 @@ public class PublicityRecyclerViewAdapter extends RecyclerView.Adapter<Publicity
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    EditText editTextPublicityCodeDetail;
+                    EditText editTextPublicityNameDetail;
+                    EditText editTextPublicityClientDetail;
+                    EditText editTextPublicityZoneDetail;
+                    EditText editTextPublicityEstRegDetail;
+
+                    //Consultas de la tabla relacionada
+                    ClientsRepository clientsRepository = ClientsRepository.get(context);
+                    ZonesRepository zonesRepository = ZonesRepository.get(context);
+
+                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View dialogView = inflater.inflate(R.layout.activity_detail_publicity, null);
+
+                    AlertDialog builder = new AlertDialog
+                            .Builder(context)
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setTitle("Detalle Publicidad")
+                            .setView(dialogView)
+                            .create();
+
+
+                    editTextPublicityCodeDetail = dialogView.findViewById(R.id.editTextPublicityCodeDetail);
+                    editTextPublicityNameDetail = dialogView.findViewById(R.id.editTextPublicityNameDetail);
+                    editTextPublicityClientDetail = dialogView.findViewById(R.id.editTextPublicityClientDetail);
+                    editTextPublicityZoneDetail = dialogView.findViewById(R.id.editTextPublicityZoneDetail);
+                    editTextPublicityEstRegDetail = dialogView.findViewById(R.id.editTextPublicityEstRegDetail);
+
+                    editTextPublicityCodeDetail.setKeyListener(null);
+                    editTextPublicityNameDetail.setKeyListener(null);
+                    editTextPublicityClientDetail.setKeyListener(null);
+                    editTextPublicityZoneDetail.setKeyListener(null);
+                    editTextPublicityEstRegDetail.setKeyListener(null);
+
+                    //Recupero todos los campos del cliente mediante una consulta con el id
+                    Publicity publicity = publicitiesRepository.getPublicity(codePublicity.getText().toString());
+
+                    editTextPublicityCodeDetail.setText(publicity.getId());
+                    editTextPublicityNameDetail.setText(publicity.getName());
+                    editTextPublicityClientDetail.setText(clientsRepository.getClient(publicity.getClientId()).getName());
+                    editTextPublicityZoneDetail.setText(zonesRepository.getZone(publicity.getClientId()).getName());
+                    editTextPublicityEstRegDetail.setText(publicity.getRegistrationStatus());
+
+
+
+
+
+                    builder.show();
+
                     System.out.println("*************** Publicity DETAIL***************");
                 }
             });

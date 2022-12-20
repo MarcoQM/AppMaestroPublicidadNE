@@ -137,6 +137,10 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
 
                 @Override
                 public void onClick(View view) {
+
+                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View dialogView = inflater.inflate(R.layout.activity_detail_zone, null);
+
                     AlertDialog builder = new AlertDialog
                             .Builder(context)
                             .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -146,19 +150,24 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
                                 }
                             })
                             .setTitle("Detalle Zona")
-                            .setView(R.layout.activity_detail_zone)
+                            .setView(dialogView)
                             .create();
 
-                    editTextZoneCodeDetail = builder.findViewById(R.id.editTextZoneCodeDetail);
-                    editTextZoneNameDetail = builder.findViewById(R.id.editTextZoneNameDetail);
-                    editTextZoneEstRegDetail = builder.findViewById(R.id.editTextZoneEstRegDetail);
+
+                    editTextZoneCodeDetail = dialogView.findViewById(R.id.editTextZoneCodeDetail);
+                    editTextZoneNameDetail = dialogView.findViewById(R.id.editTextZoneNameDetail);
+                    editTextZoneEstRegDetail = dialogView.findViewById(R.id.editTextZoneEstRegDetail);
+
+                    editTextZoneCodeDetail.setKeyListener(null);
+                    editTextZoneNameDetail.setKeyListener(null);
+                    editTextZoneEstRegDetail.setKeyListener(null);
 
                     //Recupero todos los campos de la zona mediante una consulta con el id
-                    /*Zone zone = zonesRepository.getZone(codeZone.getText().toString());
+                    Zone zone = zonesRepository.getZone(codeZone.getText().toString());
 
                     editTextZoneCodeDetail.setText(zone.getId());
                     editTextZoneNameDetail.setText(zone.getName());
-                    editTextZoneEstRegDetail.setText(zone.getRegistrationStatus());*/
+                    editTextZoneEstRegDetail.setText(zone.getRegistrationStatus());
 
                     builder.show();
 

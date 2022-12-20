@@ -15,7 +15,7 @@ public interface PublicityDao {
     List<Publicity> getPublicities();
 
     @Query("SELECT * FROM publicities WHERE id LIKE :idPublicity")
-    Publicity getPublicity(Integer idPublicity);
+    Publicity getPublicity(String idPublicity);
 
     @Insert
     void addPublicity(Publicity publicity);

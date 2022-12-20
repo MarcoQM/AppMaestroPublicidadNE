@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -137,9 +138,43 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
                 @Override
                 public void onClick(View view) {
 
+                    EditText editTextClientCodeDetail;
+                    EditText editTextClientNameDetail;
+                    EditText editTextClientEstRegDetail;
 
 
+                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View dialogView = inflater.inflate(R.layout.activity_detail_client, null);
 
+                    AlertDialog builder = new AlertDialog
+                            .Builder(context)
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setTitle("Detalle Cliente")
+                            .setView(dialogView)
+                            .create();
+
+
+                    editTextClientCodeDetail = dialogView.findViewById(R.id.editTextClientCodeDetail);
+                    editTextClientNameDetail = dialogView.findViewById(R.id.editTextClientNameDetail);
+                    editTextClientEstRegDetail = dialogView.findViewById(R.id.editTextClientEstRegDetail);
+
+                    editTextClientCodeDetail.setKeyListener(null);
+                    editTextClientNameDetail.setKeyListener(null);
+                    editTextClientEstRegDetail.setKeyListener(null);
+
+                    //Recupero todos los campos del cliente mediante una consulta con el id
+                    Client client = clientsRepository.getClient(codeClient.getText().toString());
+
+                    editTextClientCodeDetail.setText(client.getId());
+                    editTextClientNameDetail.setText(client.getName());
+                    editTextClientEstRegDetail.setText(client.getRegistrationStatus());
+
+                    builder.show();
 
                     System.out.println("*************** Client DETAIL***************");
                 }

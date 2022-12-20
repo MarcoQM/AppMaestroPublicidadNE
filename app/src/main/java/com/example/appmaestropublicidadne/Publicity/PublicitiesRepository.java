@@ -34,7 +34,7 @@ public class PublicitiesRepository {
         return publicityDao.getPublicities();
     }
 
-    public Publicity getPublicity(Integer id) {
+    public Publicity getPublicity(String id) {
         return publicityDao.getPublicity(id);
     }
 

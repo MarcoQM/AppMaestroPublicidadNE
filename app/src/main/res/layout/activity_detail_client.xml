@@ -27,7 +27,7 @@
             android:text="Código" />
 
         <EditText
-            android:id="@+id/editTextZoneCodeDetail"
+            android:id="@+id/editTextClientCodeDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="0123456789"
@@ -41,7 +41,7 @@
             android:text="Nombre" />
 
         <EditText
-            android:id="@+id/editTextZoneNameDetail"
+            android:id="@+id/editTextClientNameDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none|textPersonName" />
@@ -53,7 +53,7 @@
             android:text="Estado de Registro" />
 
         <EditText
-            android:id="@+id/editTextZoneEstRegDetail"
+            android:id="@+id/editTextClientEstRegDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
