@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -129,8 +130,38 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
             });
 
             itemView.setOnClickListener(new View.OnClickListener() {
+
+                EditText editTextZoneCodeDetail;
+                EditText editTextZoneNameDetail;
+                EditText editTextZoneEstRegDetail;
+
                 @Override
                 public void onClick(View view) {
+                    AlertDialog builder = new AlertDialog
+                            .Builder(context)
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setTitle("Detalle Zona")
+                            .setView(R.layout.activity_detail_zone)
+                            .create();
+
+                    editTextZoneCodeDetail = builder.findViewById(R.id.editTextZoneCodeDetail);
+                    editTextZoneNameDetail = builder.findViewById(R.id.editTextZoneNameDetail);
+                    editTextZoneEstRegDetail = builder.findViewById(R.id.editTextZoneEstRegDetail);
+
+                    //Recupero todos los campos de la zona mediante una consulta con el id
+                    /*Zone zone = zonesRepository.getZone(codeZone.getText().toString());
+
+                    editTextZoneCodeDetail.setText(zone.getId());
+                    editTextZoneNameDetail.setText(zone.getName());
+                    editTextZoneEstRegDetail.setText(zone.getRegistrationStatus());*/
+
+                    builder.show();
+
                     System.out.println("*************** Zone DETAIL***************");
                 }
             });

@@ -50,10 +50,6 @@ public class Zone {
 
     @Override
     public String toString() {
-        return "Zone{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", registrationStatus='" + registrationStatus + '\'' +
-                '}';
+        return name;
     }
 }

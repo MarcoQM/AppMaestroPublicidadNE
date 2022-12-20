@@ -110,6 +110,8 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Client client = new Client();
+
+
                                     client.setId(codeClient.getText().toString());
                                     clientsRepository.deleteClient(client);
 
@@ -134,6 +136,11 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+
+
+
+
                     System.out.println("*************** Client DETAIL***************");
                 }
             });
