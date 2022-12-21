@@ -39,9 +39,15 @@ public class PublicityRecyclerViewAdapter extends RecyclerView.Adapter<Publicity
     PublicitiesRepository publicitiesRepository;
 
     public PublicityRecyclerViewAdapter(List<Publicity> publicityList, Context context) {
-        this.publicityList = publicityList;
         originalListPublicity = new ArrayList<>();
-        originalListPublicity.addAll(publicityList);
+        this.publicityList = new ArrayList<>();
+        for (Publicity z : publicityList){
+            if (z.getRegistrationStatus().equalsIgnoreCase("A")||z.getRegistrationStatus().equalsIgnoreCase("I")){
+                originalListPublicity.add(z);
+                this.publicityList.add(z);
+            }
+        }
+
         this.context = context;
         publicitiesRepository = PublicitiesRepository.get(this.context);
     }

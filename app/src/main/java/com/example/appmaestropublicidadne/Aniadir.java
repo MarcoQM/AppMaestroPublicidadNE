@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appmaestropublicidadne.activities.AddZoneActivity;
+import com.example.appmaestropublicidadne.activities.ClientActivity;
 import com.example.appmaestropublicidadne.activities.ZoneActivity;
 import com.example.appmaestropublicidadne.client.Client;
 import com.example.appmaestropublicidadne.client.ClientsRepository;
@@ -70,7 +71,7 @@ public class Aniadir extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent next;
                 if (tipo.equalsIgnoreCase("Zona")) {
                     Zone zone = new Zone();
 
@@ -83,6 +84,8 @@ public class Aniadir extends AppCompatActivity {
                     }
                     //Guardar datos
                     zonesRepository.updateZone(zone);
+                    Toast.makeText(Aniadir.this, "Se editaron los datos de " + codigo + " con éxito", Toast.LENGTH_LONG).show();
+                    next = new Intent(getApplicationContext(), ZoneActivity.class);
                 }
                 else {
                     Client client = new Client();
@@ -95,9 +98,10 @@ public class Aniadir extends AppCompatActivity {
                         client.setRegistrationStatus("I");
                     }
                     clientsRepository.updateClient(client);
+                    Toast.makeText(Aniadir.this, "Se editaron los datos de " + codigo + " con éxito", Toast.LENGTH_LONG).show();
+                    next = new Intent(getApplicationContext(), ClientActivity.class);
                 }
-                Toast.makeText(Aniadir.this, "Se editaron los datos de " + codigo + " con éxito", Toast.LENGTH_LONG).show();
-                Intent next = new Intent(getApplicationContext(), ZoneActivity.class);
+
                 startActivity(next);
             }
         });

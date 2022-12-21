@@ -20,6 +20,9 @@ import com.example.appmaestropublicidadne.client.ClientsRepository;
 import com.example.appmaestropublicidadne.zone.Zone;
 import com.example.appmaestropublicidadne.zone.ZonesRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddPublicityActivity extends AppCompatActivity {
     Button buttonAddPublicity;
     EditText editTextPublicityName;
@@ -78,12 +81,30 @@ public class AddPublicityActivity extends AppCompatActivity {
     }
 
     public void dataSpinnerClients() {
-        ArrayAdapter<Client> adapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, clientsRepository.getClients());
+        List<Client> clients = new ArrayList<>();
+        ArrayList <Client> listaClients = new ArrayList<>();
+        clients = clientsRepository.getClients();
+        for (Client c : clients){
+            if (c.getRegistrationStatus().equalsIgnoreCase("A")){
+                listaClients.add(c);
+            }
+        }
+
+        ArrayAdapter<Client> adapter = new ArrayAdapter<Client>(this, android.R.layout.simple_spinner_item, listaClients);
         spinnerPublicityClients.setAdapter(adapter);
+
     }
 
     public void dataSpinnerZones() {
-        ArrayAdapter<Zone> adapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, zonesRepository.getZones());
+        List<Zone> zones = new ArrayList<>();
+        ArrayList <Zone> listaZones = new ArrayList<>();
+        zones = zonesRepository.getZones();
+        for (Zone z : zones){
+            if (z.getRegistrationStatus().equalsIgnoreCase("A")){
+                listaZones.add(z);
+            }
+        }
+        ArrayAdapter<Zone> adapter = new ArrayAdapter<Zone>(this, android.R.layout.simple_spinner_item, listaZones);
         spinnerPublicityZones.setAdapter(adapter);
     }
 }
