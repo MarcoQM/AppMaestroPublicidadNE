@@ -31,7 +31,6 @@ public class EditPublicityActivity extends AppCompatActivity {
     RadioGroup radioGroupPublicityStatusEdit;
     RadioButton radioButtonPublicityStatusActive;
     RadioButton radioButtonPublicityStatusInactive;
-    RadioButton radioButtonPublicityStatusDelete;
 
     String publicityId;
     PublicitiesRepository publicitiesRepository;
@@ -69,7 +68,6 @@ public class EditPublicityActivity extends AppCompatActivity {
         radioGroupPublicityStatusEdit = findViewById(R.id.radioButtonPublicityStatusEdit);
         radioButtonPublicityStatusActive = findViewById(R.id.radioButtonPublicityStatusActive);
         radioButtonPublicityStatusInactive = findViewById(R.id.radioButtonPublicityStatusInactive);
-        radioButtonPublicityStatusDelete = findViewById(R.id.radioButtonPublicityStatusDelete);
 
         //el id no debe cambiar
         editTextPublicityCodeEdit.setKeyListener(null);
@@ -100,7 +98,7 @@ public class EditPublicityActivity extends AppCompatActivity {
                 //Guardar datos
                 publicitiesRepository.updatePublicity(publicity);
 
-                Toast.makeText(EditPublicityActivity.this, "Se actualizaron los datos con éxito", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditPublicityActivity.this, "Se actualizaron los datos " + publicity.getId() +" con éxito", Toast.LENGTH_SHORT).show();
                 Intent next = new Intent(getApplicationContext(), PublicityActivity.class);
                 startActivity(next);
             }
@@ -130,21 +128,15 @@ public class EditPublicityActivity extends AppCompatActivity {
             case "I":
                 radioButtonPublicityStatusInactive.setChecked(true);
                 break;
-            case "*":
-                radioButtonPublicityStatusDelete.setChecked(true);
-                break;
-
         }
     }
 
     public String verifyCheckPublicityStatus() {
         if (radioButtonPublicityStatusActive.isChecked()) {
             return "A";
-        } else if(radioButtonPublicityStatusInactive.isChecked()){
+        } else if(radioButtonPublicityStatusInactive.isChecked()) {
             return "I";
-        } else if(radioButtonPublicityStatusDelete.isChecked()) {
-            return "*";
         }
-        return "*";
+        return "A";
     }
 }

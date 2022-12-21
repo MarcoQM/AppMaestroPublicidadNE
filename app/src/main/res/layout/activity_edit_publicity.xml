@@ -117,20 +117,16 @@
                 android:orientation="horizontal">
                 <RadioButton
                     android:id="@+id/radioButtonPublicityStatusActive"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="Activo" />
                 <RadioButton
                     android:id="@+id/radioButtonPublicityStatusInactive"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="Inactivo" />
-                <RadioButton
-                    android:id="@+id/radioButtonPublicityStatusDelete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/red"
-                    android:text="Eliminado" />
 
             </RadioGroup>
 

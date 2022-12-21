@@ -41,7 +41,7 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
         for (Client c : clientList){
             if (c.getRegistrationStatus().equalsIgnoreCase("A") || c.getRegistrationStatus().equalsIgnoreCase("I")){
                 originalListClient.add(c);
-                clientList.add(c);
+                this.clientList.add(c);
             }
         }
         this.context = context;
