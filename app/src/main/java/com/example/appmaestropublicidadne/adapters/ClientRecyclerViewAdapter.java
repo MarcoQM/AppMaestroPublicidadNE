@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmaestropublicidadne.Aniadir;
 import com.example.appmaestropublicidadne.R;
 import com.example.appmaestropublicidadne.activities.ClientActivity;
 import com.example.appmaestropublicidadne.activities.ZoneActivity;
@@ -35,9 +36,14 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
     ClientsRepository clientsRepository;
 
     public ClientRecyclerViewAdapter(List<Client> clientList, Context context) {
-        this.clientList = clientList;
+        this.clientList = new ArrayList<>();
         originalListClient = new ArrayList<>();
-        originalListClient.addAll(clientList);
+        for (Client c : clientList){
+            if (c.getRegistrationStatus().equalsIgnoreCase("A") || c.getRegistrationStatus().equalsIgnoreCase("I")){
+                originalListClient.add(c);
+                clientList.add(c);
+            }
+        }
         this.context = context;
         clientsRepository = ClientsRepository.get(context);
     }
@@ -101,6 +107,16 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
             editClient = itemView.findViewById(R.id.recyclerItemButtonUpdate);
             deleteClient = itemView.findViewById(R.id.recyclerItemButtonDelete);
 
+            editClient.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, Aniadir.class);
+                    intent.putExtra("EditarCliente", codeClient.getText().toString());
+                    intent.putExtra("NombreCliente", nameClient.getText().toString());
+                    intent.putExtra("EstadoCliente", estRegClient.getText().toString());
+                    context.startActivity(intent);
+                }
+            });
             deleteClient.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -111,10 +127,9 @@ public class ClientRecyclerViewAdapter extends RecyclerView.Adapter<ClientRecycl
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Client client = new Client();
-
-
-                                    client.setId(codeClient.getText().toString());
-                                    clientsRepository.deleteClient(client);
+                                    client = clientsRepository.getClient(codeClient.getText().toString());
+                                    client.setRegistrationStatus("*");
+                                    clientsRepository.updateClient(client);
 
                                     Intent intent = new Intent(context, ClientActivity.class);
                                     context.startActivity(intent);

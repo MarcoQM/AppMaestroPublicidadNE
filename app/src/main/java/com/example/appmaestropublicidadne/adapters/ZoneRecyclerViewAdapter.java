@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmaestropublicidadne.Aniadir;
 import com.example.appmaestropublicidadne.R;
 import com.example.appmaestropublicidadne.activities.AddZoneActivity;
 import com.example.appmaestropublicidadne.activities.ZoneActivity;
@@ -32,9 +33,14 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
     ZonesRepository zonesRepository;
 
     public ZoneRecyclerViewAdapter(List<Zone> zoneList, Context context) {
-        this.zoneList = zoneList;
+        this.zoneList = new ArrayList<>();
         originalListZone = new ArrayList<>();
-        originalListZone.addAll(zoneList);
+        for (Zone z : zoneList){
+            if (z.getRegistrationStatus().equalsIgnoreCase("A")||z.getRegistrationStatus().equalsIgnoreCase("I")){
+                originalListZone.add(z);
+                this.zoneList.add(z);
+            }
+        }
         this.context = context;
         zonesRepository = ZonesRepository.get(this.context);
     }
@@ -98,6 +104,16 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
             editZone = itemView.findViewById(R.id.recyclerItemButtonUpdate);
             deleteZone = itemView.findViewById(R.id.recyclerItemButtonDelete);
 
+            editZone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, Aniadir.class);
+                    intent.putExtra("EditarZona", codeZone.getText().toString());
+                    intent.putExtra("NombreZona", nameZone.getText().toString());
+                    intent.putExtra("EstadoZona", estRegZone.getText().toString());
+                    context.startActivity(intent);
+                }
+            });
             deleteZone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,8 +124,9 @@ public class ZoneRecyclerViewAdapter extends RecyclerView.Adapter<ZoneRecyclerVi
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Zone zone = new Zone();
-                                    zone.setId(codeZone.getText().toString());
-                                    zonesRepository.deleteZone(zone);
+                                    zone = zonesRepository.getZone(codeZone.getText().toString());
+                                    zone.setRegistrationStatus("*");
+                                    zonesRepository.updateZone(zone);
 
                                     Intent intent = new Intent(context, ZoneActivity.class);
                                     context.startActivity(intent);
