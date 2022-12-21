@@ -56,17 +56,14 @@ public class AddPublicityActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Publicity publicity = new Publicity();
 
-                Client client = new Client();
-                Zone zone = new Zone();
-
-                client = (Client) spinnerPublicityClients.getSelectedItem();
-                zone = (Zone) spinnerPublicityZones.getSelectedItem();
+                Client client = (Client) spinnerPublicityClients.getSelectedItem();
+                Zone zone = (Zone) spinnerPublicityZones.getSelectedItem();
 
 
                 publicity.setId(editTextPublicityCode.getText().toString());
                 publicity.setName(editTextPublicityName.getText().toString());
                 publicity.setClientId(client.getId());
-                publicity.setZoneId(client.getId());
+                publicity.setZoneId(zone.getId());
 
                 //Guardar datos
                 publicitiesRepository.addPublicity(publicity);

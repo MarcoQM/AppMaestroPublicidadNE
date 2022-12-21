@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appmaestropublicidadne.Publicity.PublicitiesRepository;
 import com.example.appmaestropublicidadne.Publicity.Publicity;
 import com.example.appmaestropublicidadne.R;
+import com.example.appmaestropublicidadne.activities.EditPublicityActivity;
 import com.example.appmaestropublicidadne.activities.PublicityActivity;
 import com.example.appmaestropublicidadne.activities.ZoneActivity;
 import com.example.appmaestropublicidadne.client.Client;
@@ -104,6 +105,19 @@ public class PublicityRecyclerViewAdapter extends RecyclerView.Adapter<Publicity
             editPublicity = itemView.findViewById(R.id.recyclerItemButtonUpdate);
             deletePublicity = itemView.findViewById(R.id.recyclerItemButtonDelete);
 
+
+            editPublicity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, EditPublicityActivity.class);
+                    //Le envio el id de la publicidad que quiero editar
+                    intent.putExtra("ID", codePublicity.getText());
+                    context.startActivity(intent);
+                }
+            });
+
+
+
             deletePublicity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -185,9 +199,6 @@ public class PublicityRecyclerViewAdapter extends RecyclerView.Adapter<Publicity
                     editTextPublicityClientDetail.setText(clientsRepository.getClient(publicity.getClientId()).getName());
                     editTextPublicityZoneDetail.setText(zonesRepository.getZone(publicity.getClientId()).getName());
                     editTextPublicityEstRegDetail.setText(publicity.getRegistrationStatus());
-
-
-
 
 
                     builder.show();

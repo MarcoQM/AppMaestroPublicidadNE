@@ -13,14 +13,21 @@
         android:theme="@style/Theme.AppMaestroPublicidadNE"
         tools:targetApi="31">
         <activity
-            android:name=".DetailPublicityActivity"
+            android:name=".activities.EditPublicityActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DetailClientActivity"
+            android:name=".activities.DetailPublicityActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activities.DetailClientActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
