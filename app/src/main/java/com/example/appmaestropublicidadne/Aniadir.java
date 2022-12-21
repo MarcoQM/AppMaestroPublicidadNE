@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appmaestropublicidadne.activities.AddZoneActivity;
@@ -22,8 +23,8 @@ import com.example.appmaestropublicidadne.zone.ZonesRepository;
 public class Aniadir extends AppCompatActivity {
 
     Button buttonAdd;
+    TextView titulo;
     EditText editTextName;
-    EditText editTextCode;
     RadioButton activo, inactivo;
     String codigo, nombre, estado, tipo;
 
@@ -36,8 +37,8 @@ public class Aniadir extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniadir);
 
+        titulo = findViewById(R.id.textView2);
         editTextName = findViewById(R.id.editTextName);
-        editTextCode = findViewById(R.id.editTextCode);
         activo =findViewById(R.id.radioButtonActivo);
         inactivo = findViewById(R.id.radioButtonInactivo);
         buttonAdd = findViewById(R.id.buttonSave);
@@ -45,6 +46,7 @@ public class Aniadir extends AppCompatActivity {
         codigo =getIntent().getStringExtra("EditarZona");
         nombre = getIntent().getStringExtra("NombreZona");
         estado = getIntent().getStringExtra("EstadoZona");
+        titulo.setText("Editar Zona");
         tipo = "Zona";
         zonesRepository = ZonesRepository.get(this);
 
@@ -52,12 +54,11 @@ public class Aniadir extends AppCompatActivity {
             codigo =getIntent().getStringExtra("EditarCliente");
             nombre = getIntent().getStringExtra("NombreCliente");
             estado = getIntent().getStringExtra("EstadoCliente");
-
+            titulo.setText("Editar Cliente");
             tipo = "Cliente";
             clientsRepository = ClientsRepository.get(this);
         }
 
-        editTextCode.setText(codigo);
         editTextName.setText(nombre);
         if (estado.equalsIgnoreCase("A")){
             activo.setChecked(true);
